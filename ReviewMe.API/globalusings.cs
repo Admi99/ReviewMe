@@ -1,0 +1,11 @@
+﻿global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.OpenApi.Models;
+global using ReviewMe.API.Middlewares;
+global using ReviewMe.API.Settings;
+global using ReviewMe.Core;
+global using ReviewMe.Core.Authorization;
+global using ReviewMe.Infrastructure.DbStorage;
+global using ReviewMe.Infrastructure.RabbitMQConsumer;

@@ -1,0 +1,31 @@
+﻿@model ReviewMe.Core.DomainEntities.EmailTemplateModels.ReviewerFeedbackRequestedModel
+
+@{
+    string assessedPersonName = Model!.AssessedPersonName;
+    var assessedPersonFirstName = assessedPersonName
+        .Split(" ")
+        .Last();
+    var assessedPersonFirstNameWithS = assessedPersonFirstName + "'s";
+
+    var reviewer = Model!.ReviewerName;
+    var reviewerFirstName = reviewer
+        .Split(" ")
+        .Last();
+}
+
+<p>
+    Hello @reviewerFirstName,
+    <br /><br />
+    @assessedPersonFirstNameWithS performance review will be soon, therefore i would like to ask you for your feedbacks.
+    Please, fill your feedback via ReviewMe: <br /> @Model!.FeedbackUrl until @Model!.AssessmentDueDate.ToString("dd.MM.yyyy")
+    <br />
+    (or self-assessment in case it's your performance review - that is voluntary)
+    <br /><br />
+    If you don't want to review this person, please provide reason here: <br /> @Model!.DeclineUrl
+    <br /><br />
+    Feel free to write answer in English or Czech.
+    <br /><br />
+    Thanks for cooperation,
+    <br />
+    ReviewMe
+</p>

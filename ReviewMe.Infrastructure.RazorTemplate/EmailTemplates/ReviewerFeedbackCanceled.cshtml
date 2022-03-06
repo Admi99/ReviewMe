@@ -1,0 +1,19 @@
+﻿@model ReviewMe.Core.DomainEntities.EmailTemplateModels.ReviewerFeedbackCancelledModel
+
+@{
+    var reviewer = Model!.ReviewerName;
+    var reviewerFirstName = reviewer
+        .Split(" ")
+        .Last();
+
+}
+
+<p>
+    Hello @reviewerFirstName
+    <br/>
+    Your feedback for <b>@Model!.AssessedPersonName</b> is not needed anymore.
+</p>
+Thank you.
+<br />
+ReviewMe
+

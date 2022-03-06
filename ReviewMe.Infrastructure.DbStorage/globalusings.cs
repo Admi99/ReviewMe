@@ -1,0 +1,11 @@
+﻿global using AutoMapper;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Migrations;
+global using Microsoft.Extensions.Logging;
+global using ReviewMe.Core.DomainEntities;
+global using ReviewMe.Core.Enums;
+global using ReviewMe.Core.Infrastructures;
+global using ReviewMe.Infrastructure.DbStorage.Comparers;
+global using ReviewMe.Infrastructure.DbStorage.DatabaseObjects;
+global using ReviewMe.Infrastructure.DbStorage.Extensions;
+global using System.ComponentModel.DataAnnotations.Schema;

@@ -1,0 +1,35 @@
+﻿@model ReviewMe.Core.DomainEntities.EmailMessage
+SUBJECT:[TEST]
+
+<br />
+<br /><b>Original mail for:</b>
+<br />
+<br /><b>To</b>
+<ul>
+    @foreach (var email in Model!.To)
+    {
+        <li>@email</li>
+    }
+</ul>
+
+@if (Model.Cc.ToList().Count > 0)
+{
+    <b>Cc</b>
+    <ul>
+        @foreach (var email in Model!.Cc)
+        {
+            <li>@email</li>
+        }
+    </ul>
+}
+
+@if (Model.Bcc.ToList().Count > 0)
+{
+    <b>Bcc</b>
+    <ul>
+        @foreach (var email in Model!.Bcc)
+        {
+            <li>@email</li>
+        }
+    </ul>
+}

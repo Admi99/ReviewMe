@@ -1,0 +1,22 @@
+﻿@model ReviewMe.Core.DomainEntities.EmailTemplateModels.PerformanceReviewSessionReminderModel
+
+@{
+}
+
+<p>Hello, this person will have PR soon. <br/> Here is a list of a reviewers requested for that person:</p>
+
+@foreach (var reviewerName in Model!.ReviewersNames)
+{
+    <p><b>@reviewerName</b></p>
+}
+
+@if (Model!.IsAdmin)
+{
+    <p>Requested feedback: 
+        <br/>
+        @Model!.AssessmentUrl
+    </p>
+}
+
+
+
