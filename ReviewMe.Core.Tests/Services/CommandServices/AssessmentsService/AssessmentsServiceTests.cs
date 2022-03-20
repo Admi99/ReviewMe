@@ -375,45 +375,4 @@ public class AssessmentsServiceTests
         // Assert
         assessmentRepository.Received(1).Update(Arg.Is<Assessment>(actualResult => actualResult.IsEquivalentTo(expectedResult)));
     }
-
-    [Test]
-    public void SaveAdditionalFeedback()
-    {
-        // Arrange
-        var employeeId = 5;
-
-        var assessment = new Assessment
-        {
-            Id = 1,
-            AssessmentState = AssessmentState.Open,
-            EmployeeId = employeeId
-        };
-
-        var expectedResult = new Assessment
-        {
-            EmployeeId = employeeId,
-            AdditionalFeedback = "Additional feedback to LSR."
-        };
-
-        var request = new SaveAdditionalFeedbackRequest
-        {
-            Feedback = "Additional feedback to LSR"
-        };
-
-        var assessmentRepository = Substitute.For<IAssessmentsRepository>();
-        assessmentRepository.GetWithReviewers(employeeId, AssessmentState.Open).Returns(assessment);
-
-        var employeesRepository = Substitute.For<IEmployeesRepository>();
-        var currentUserService = Substitute.For<ICurrentUserService>();
-        var dateTimeProvider = Substitute.For<IDateTimeProvider>();
-        var notifyAssessment = Substitute.For<IAssessmentsNotificationService>();
-
-        var testee = new Core.Services.CommandServices.AssessmentsService.AssessmentsService(assessmentRepository, employeesRepository, currentUserService, dateTimeProvider, notifyAssessment);
-
-        // Act
-        testee.SaveAdditionalFeedback(employeeId, request);
-
-        // Assert
-        assessmentRepository.Received(1).Update(Arg.Do<Assessment>(actualResult => actualResult.Should().BeEquivalentTo(expectedResult)));
-    }
 }

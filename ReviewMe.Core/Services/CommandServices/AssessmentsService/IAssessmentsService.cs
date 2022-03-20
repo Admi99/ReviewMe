@@ -6,5 +6,4 @@ public interface IAssessmentsService
     void UpdateAssessment(int employeeId, UpdateAssessmentRequest request);
     void CloseAssessment(int employeeId);
     void DeleteAssessment(int employeeId);
-    void SaveAdditionalFeedback(int employeeId, SaveAdditionalFeedbackRequest request);
 }

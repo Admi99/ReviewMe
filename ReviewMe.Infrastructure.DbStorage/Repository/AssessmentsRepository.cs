@@ -29,7 +29,6 @@ public class AssessmentsRepository : IAssessmentsRepository
         foundAssessment.AssessmentState = assessment.AssessmentState;
         foundAssessment.AssessmentDueDate = assessment.AssessmentDueDate;
         foundAssessment.PerformanceReviewDate = assessment.PerformanceReviewDate;
-        foundAssessment.AdditionalFeedback = assessment.AdditionalFeedback;
         foundAssessment.AssessmentReviewers = assessment.AssessmentReviewers
             .Select(a =>
             new AssessmentReviewerDo

@@ -16,12 +16,12 @@ public class ReviewersController : Controller
         _reviewerFeedbackService = reviewerFeedbackService;
     }
 
-    [Authorize(Policy = AuthorizationPolicies.Employee)]
+    //[Authorize(Policy = AuthorizationPolicies.Employee)]
     [HttpGet("employee/{employeeId:int}")]
     public async Task<GetAssessmentReviewersResponse> GetByEmployeeId(int employeeId)
         => await _reviewersService.GetByEmployeeIdAsync(employeeId);
 
-    [Authorize(Policy = AuthorizationPolicies.Employee)]
+    //[Authorize(Policy = AuthorizationPolicies.Employee)]
     [HttpGet("Feedback/employee/{employeeId:int}")]
     public GetReviewerFeedbackResponse GetFeedBacksByEmployeeId(int employeeId)
         => _reviewerFeedbackService.GetByEmployeeId(employeeId);

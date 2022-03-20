@@ -135,18 +135,6 @@ public class AssessmentsService : IAssessmentsService
 
     }
 
-    public void SaveAdditionalFeedback(int employeeId, SaveAdditionalFeedbackRequest request)
-    {
-        var assessment = _assessmentsRepository.GetWithReviewers(employeeId, AssessmentState.Open);
-
-        if (assessment is null)
-            throw new ErrorTypeException(ErrorType.ResourceNotFound,
-                $"No open assessment for employee '{employeeId}' found!");
-
-        assessment.AdditionalFeedback = request.Feedback;
-        _assessmentsRepository.Update(assessment);
-    }
-
     private int CurrentEmployeeId
         => _employeesRepository.GetByLogin(_currentUserService.UserNameWithoutDomain)!.Id;
 }

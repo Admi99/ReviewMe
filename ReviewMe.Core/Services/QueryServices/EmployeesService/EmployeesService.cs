@@ -42,7 +42,6 @@ public class EmployeesService : IEmployeesService
             AssessmentDueDate = assessment?.AssessmentDueDate ?? default,
             PerformanceReviewDate = assessment?.PerformanceReviewDate ?? default,
             ImageSrc = Utilities.GetProfilePhoto(employee.Login),
-            AdditionalFeedback = assessment?.AdditionalFeedback ?? string.Empty,
             TeamLeaderName  = _employeesRepository.GetByLogin(employee.TeamLeaderLogin)?.SurnameFirstName ?? string.Empty
         };
 

@@ -115,7 +115,6 @@ public class EmployeesServiceTests
             {
                 new Assessment
                 {
-                    AdditionalFeedback = "AdditionalFeedback",
                     AssessmentDueDate = now,
                     PerformanceReviewDate = now.AddDays(1),
                 }

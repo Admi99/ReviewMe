@@ -12,8 +12,6 @@ public class Assessment : IEntity
 
     public DateTimeOffset CreatedAt { get; set; }
 
-    public string AdditionalFeedback { get; set; } = string.Empty;
-
     public int EmployeeId { get; set; }
 
     public Employee? Employee { get; set; }
