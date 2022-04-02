@@ -7,9 +7,21 @@ public class ColleagueService : IColleagueService
         => MockProjects();
 
     public IReadOnlyCollection<ColleagueResponse> GetEmployeeColleaguesAsync(int timurId)
-        => MockEmployeeColleagues()
+    {
+        var t = MockEmployeeColleagues()
         .Where(colleague => colleague.TimurId == timurId)
-        .ToList();   
+        .ToList();
+
+        var project = MockEmployeeColleagues()
+            .FirstOrDefault(a => a.TimurId == timurId);
+
+        if(project == null) return new List<ColleagueResponse>();
+
+        return MockEmployeeColleagues()
+            .Where(a => a.TimurId != timurId)
+            .Where(a => a.ProjectId == project.ProjectId)
+            .ToList();
+    } 
 
     private IReadOnlyCollection<ColleagueResponse> MockEmployeeColleagues() 
         => new List<ColleagueResponse>
