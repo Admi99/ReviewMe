@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ReviewMe.Core.Services.QueryServices.TimurService;
+namespace ReviewMe.Core.Services.QueryServices.ColleagueService;
 
 public class ColleagueResponse
 {

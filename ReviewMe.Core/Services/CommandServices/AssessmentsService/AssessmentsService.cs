@@ -132,9 +132,7 @@ public class AssessmentsService : IAssessmentsService
         _assessmentsRepository.Update(assessment);
 
         _assessmentsNotificationService.NotifyOnDeleteAssessment(employeeId, assessment.AssessmentReviewers.Select(assessmentReviewer => assessmentReviewer.EmployeeId).ToList());
-
     }
-
     private int CurrentEmployeeId
         => _employeesRepository.GetByLogin(_currentUserService.UserNameWithoutDomain)!.Id;
 }

@@ -60,14 +60,14 @@ public class EmployeesServiceTests
             {
                 Id = 5,
                 SurnameFirstName = employee1,
-                ImageSrc = $"https://timur.domain.local:8080/persons/login/{login1}/photo",
+                ImageSrc = $"https://localhost:8080/persons/login/{login1}/photo",
                 TeamLeaderName = teamLeader.SurnameFirstName
             },
             new()
             {
                 Id = 6,
                 SurnameFirstName = employee2,
-                ImageSrc = $"https://timur.domain.local:8080/persons/login/{login2}/photo",
+                ImageSrc = $"https://localhost:8080/persons/login/{login2}/photo",
                 TeamLeaderName = teamLeader.SurnameFirstName
             }
         };
@@ -120,16 +120,15 @@ public class EmployeesServiceTests
                 }
             },
             Login = login,
-            TeamLeaderLogin = teamLeaderLogin
+            TeamLeaderLogin = teamLeaderLogin,
         };
 
         var expectedResult = new EmployeeResponse
         {
             Id = 1,
             SurnameFirstName = "SurnameFirstName",
-            ImageSrc = $"https://timur.domain.local:8080/persons/login/{login}/photo",
+            ImageSrc = $"https://localhost:8080/persons/login/{login}/photo",
             HasOpenAssessment = true,
-            AdditionalFeedback = "AdditionalFeedback",
             AssessmentDueDate = now,
             PerformanceReviewDate = now.AddDays(1),
             TeamLeaderName = LineManager.SurnameFirstName

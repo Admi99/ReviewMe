@@ -47,7 +47,7 @@ public class ReviewerTaskServiceTest
                     SurnameFirstName = assessment.Employee.SurnameFirstName,
                     Department = assessment.Employee.Department,
                     Position = assessment.Employee.Position,
-                    ImageSrc = $"https://timur.domain.local:8080/persons/login/{assessment.Employee.Login}/photo",
+                    ImageSrc = $"https://localhost:8080/persons/login/{assessment.Employee.Login}/photo",
                     AssessmentDueDate = assessment.AssessmentDueDate,
                     AreasForImprovements = "Hey what is?!"
 
@@ -192,7 +192,7 @@ public class ReviewerTaskServiceTest
                 SurnameFirstName = assessment.Employee.SurnameFirstName,
                 Department = assessment.Employee.Department,
                 Position = assessment.Employee.Position,
-                ImageSrc = $"https://timur.domain.local:8080/persons/login/{assessment.Employee.Login}/photo",
+                ImageSrc = $"https://localhost:8080/persons/login/{assessment.Employee.Login}/photo",
                 AssessmentDueDate = assessment.AssessmentDueDate,
                 AreasForImprovements = "IDK",
                 TeamLeaderName = teamLeader.SurnameFirstName

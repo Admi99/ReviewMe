@@ -10,6 +10,11 @@ internal sealed class CurrentUserService : ICurrentUserService
 {
     private string? _usernameWithoutDomain;
 
+    public CurrentUserService()
+    {
+        _usernameWithoutDomain = "jech";
+    }
+
     public WindowsIdentity? UserIdentity { get; private set; }
 
     public string UserNameWithoutDomain => _usernameWithoutDomain ??= GetUserNameWithoutDomain();

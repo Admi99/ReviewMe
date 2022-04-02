@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using ReviewMe.Core.Services.QueryServices.ColleagueService;
 using ReviewMe.Core.Services.QueryServices.ReviewersService;
-using ReviewMe.Core.Services.QueryServices.TimurService;
 
 namespace ReviewMe.Core.Tests.Services.QueryServices.ReviewersService;
 
@@ -123,7 +123,7 @@ public class ReviewersServiceTests
         employeeRepository.GetByTimurId(employeeColleagueTimurId1).Returns(employeeColleague1);
         employeeRepository.GetByTimurId(employeeColleagueTimurId2).Returns(employeeColleague2);
 
-        var timurService = Substitute.For<ITimurService>();
+        var timurService = Substitute.For<IColleagueService>();
         timurService.GetEmployeeColleaguesAsync(employeeTimurId).Returns(colleagues);
 
         var assessmentRepository = Substitute.For<IAssessmentsRepository>();
@@ -179,7 +179,7 @@ public class ReviewersServiceTests
         };
         
 
-        var timurService = Substitute.For<ITimurService>();
+        var timurService = Substitute.For<IColleagueService>();
         var employeeRepository = Substitute.For<IEmployeesRepository>();
         var assessmentRepository = Substitute.For<IAssessmentsRepository>();
         var logger = Substitute.For<ILogger<Core.Services.QueryServices.ReviewersService.ReviewersService>>();
@@ -194,7 +194,7 @@ public class ReviewersServiceTests
 
         // Act
          employeeRepository.Get(employeeLucky.Id).Returns(employeeLucky);
-        var empLucky = testee.IsManagerAsync(employeeLucky.Id, 666).Result;
+        var empLucky = testee.IsManagerAsync(employeeLucky.Id, 666);
 
         // Assert
         empLucky.Should().BeTrue();
@@ -202,7 +202,7 @@ public class ReviewersServiceTests
 
         // Act
         employeeRepository.Get(employeeAl.Id).Returns(employeeAl);
-        var empAl =  testee.IsManagerAsync(employeeAl.Id, 666).Result;
+        var empAl =  testee.IsManagerAsync(employeeAl.Id, 666);
 
         // Assert
         empAl.Should().BeFalse();

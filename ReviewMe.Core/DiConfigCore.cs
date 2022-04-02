@@ -5,11 +5,11 @@ using ReviewMe.Core.Authorization;
 using ReviewMe.Core.Services;
 using ReviewMe.Core.Services.CommandServices.AssessmentsService;
 using ReviewMe.Core.Services.EmailNotificationServices;
+using ReviewMe.Core.Services.QueryServices.ColleagueService;
 using ReviewMe.Core.Services.QueryServices.EmployeesService;
 using ReviewMe.Core.Services.QueryServices.ReviewersFeedbackService;
 using ReviewMe.Core.Services.QueryServices.ReviewersService;
 using ReviewMe.Core.Services.QueryServices.ReviewerTasksService;
-using ReviewMe.Core.Services.QueryServices.TimurService;
 using ReviewMe.Core.Settings;
 
 namespace ReviewMe.Core;
@@ -28,7 +28,7 @@ public static class DiConfigCore
         services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         services.AddScoped<IEmployeesService, EmployeesService>();
-        services.AddScoped<ITimurService, TimurService>();
+        services.AddScoped<IColleagueService, ColleagueService>();
         services.AddScoped<IAssessmentsService, AssessmentsService>();
         services.AddScoped<IReviewersService, ReviewersService>();
         services.AddScoped<IReviewerFeedbackService, ReviewerFeedbackService>();

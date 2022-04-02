@@ -1,4 +1,4 @@
-﻿namespace ReviewMe.Core.Services.QueryServices.TimurService;
+﻿namespace ReviewMe.Core.Services.QueryServices.ColleagueService;
 
 public class ProjectResponse
 {

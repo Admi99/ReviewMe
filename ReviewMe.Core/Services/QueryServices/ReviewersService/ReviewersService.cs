@@ -1,22 +1,22 @@
 ﻿using Microsoft.Extensions.Logging;
-using ReviewMe.Core.Services.QueryServices.TimurService;
+using ReviewMe.Core.Services.QueryServices.ColleagueService;
 
 namespace ReviewMe.Core.Services.QueryServices.ReviewersService;
 
 public class ReviewersService : IReviewersService
 {
     private readonly IEmployeesRepository _employeesRepository;
-    private readonly ITimurService _timurService;
+    private readonly IColleagueService _colleagueService;
     private readonly IAssessmentsRepository _assessmentsRepository;
     private readonly ILogger _logger;
 
 
     public ReviewersService(IEmployeesRepository employeesRepository,
-        ITimurService timurService,
+        IColleagueService colleagueService,
         IAssessmentsRepository assessmentsRepository, ILogger<ReviewersService> logger)
     {
         _employeesRepository = employeesRepository;
-        _timurService = timurService;
+        _colleagueService = colleagueService;
         _assessmentsRepository = assessmentsRepository;
         _logger = logger;
     }
@@ -31,7 +31,7 @@ public class ReviewersService : IReviewersService
         var assessmentReviewers = assessment.AssessmentReviewers
             .Select(reviewers => reviewers);
 
-        var employeeColleagues = await _timurService.GetEmployeeColleaguesAsync(employee.TimurId);
+        var employeeColleagues = _colleagueService.GetEmployeeColleaguesAsync(employee.TimurId);
 
 
         return new GetAssessmentReviewersResponse
@@ -60,7 +60,7 @@ public class ReviewersService : IReviewersService
                             Name = employeeColleagueAndReviewer.employeeReviewer.SurnameFirstName,
                             EmployeeId = employeeColleagueAndReviewer.employeeReviewer.Id,
                             ProjectId = employeeColleagueAndReviewer.employeeColleague.ProjectId,
-                            IsProjectManager = IsManagerAsync(employeeColleagueAndReviewer.employeeReviewer.Id, employeeColleagueAndReviewer.employeeColleague.ProjectId).Result
+                            IsProjectManager = IsManagerAsync(employeeColleagueAndReviewer.employeeReviewer.Id, employeeColleagueAndReviewer.employeeColleague.ProjectId)
                         }))
 
                 .GroupBy(projectReviewers => projectReviewers.ProjectName, projectReviewers => projectReviewers.Item2)
@@ -76,9 +76,9 @@ public class ReviewersService : IReviewersService
             reviewer.EmployeeId == employeeId) is not null;
 
 
-    public async Task<bool> IsManagerAsync(int employeeId, int projectId)
+    public bool IsManagerAsync(int employeeId, int projectId)
     {
-        var allProjects = await _timurService.GetAllProjectsAsync();
+        var allProjects = _colleagueService.GetAllProjectsAsync();
         var foundProject = allProjects.FirstOrDefault(projectResponse => projectResponse.Id == projectId);
         var employee = _employeesRepository.Get(employeeId);
 
