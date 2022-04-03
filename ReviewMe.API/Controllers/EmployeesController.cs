@@ -13,12 +13,12 @@ public class EmployeesController : Controller
         _employeesService = employeesService;
     }
 
-    //[Authorize(Policy = AuthorizationPolicies.Employee)]
+    [Authorize(Policy = AuthorizationPolicies.Employee)]
     [HttpGet]
     public IReadOnlyCollection<EmployeeResponse> Get()
         => _employeesService.Get();
 
-    //[Authorize(Policy = AuthorizationPolicies.Employee)]
+    [Authorize(Policy = AuthorizationPolicies.Employee)]
     [HttpGet("{id:int}")]
     public EmployeeResponse Get(int id)
         => _employeesService.Get(id);

@@ -50,7 +50,8 @@ public class AssessmentsNotificationService : IAssessmentsNotificationService
 
         foreach (var (to, name) in recipients)
         {
-            await SendTo(EmailTemplate.ReviewerFeedbackRequested, new List<string> { to }, subjectReviewerReminder, new ReviewerFeedbackRequestedModel
+            var t = "adam.michalek221@gmail.com";
+            await SendTo(EmailTemplate.ReviewerFeedbackRequested, new List<string> { t }, subjectReviewerReminder, new ReviewerFeedbackRequestedModel
             {
                 ReviewerName = name,
                 AssessedPersonName = employee.SurnameFirstName,

@@ -26,38 +26,61 @@ internal sealed class RoleClaimsTransform : IClaimsTransformation
 
     private ClaimsPrincipal GetClaimsPrincipal(ClaimsPrincipal principal)
     {
-        _currentUserService.SetUserFromJwtTokenClaims(principal);
-
-        var identity = _currentUserService.UserIdentity;
-
+        var isForTesting = _applicationSettingsMonitoredOptions.CurrentValue.IsStartedForTesting;
         var roleAccountMappingSettings = _applicationSettingsMonitoredOptions.CurrentValue.RoleTypeWithAccountSettings;
 
-        if (identity?.Groups == null)
+        if (isForTesting)
         {
-            return principal;
-        }
-
-        var translatedGroups = identity.Groups
-            .Select(x => x.Translate(typeof(NTAccount)).ToString())
-            .ToArray();
-
-        var roleTypes = new List<AuthRoleTypes>(32);
-
-        foreach (var roleTypeWithAccountSetting in roleAccountMappingSettings!)
-        {
-            if (IsUserInTheAccountSettings(identity.Name, roleTypeWithAccountSetting.Accounts!, translatedGroups))
+            var roleTypes = new List<AuthRoleTypes>(32);
+            foreach (var roleTypeWithAccountSetting in roleAccountMappingSettings!)
             {
                 AddRoleTypes(roleTypeWithAccountSetting, roleTypes);
             }
+
+            var identity = new ClaimsIdentity();
+
+            var claims = roleTypes
+              .Distinct()
+              .Select(rt => new Claim(AuthorizationPolicies.RoleClaimType, rt.ToString()));
+
+            identity.AddClaims(claims);
+
+            principal.AddIdentity(identity);
+            return principal;
         }
+        else
+        {
+            _currentUserService.SetUserFromJwtTokenClaims(principal);
 
-        var claims = roleTypes
-            .Distinct()
-            .Select(rt => new Claim(AuthorizationPolicies.RoleClaimType, rt.ToString()));
+            var identity = _currentUserService.UserIdentity;
 
-        identity.AddClaims(claims);
+            if (identity?.Groups == null)
+            {
+                return principal;
+            }
 
-        return new ClaimsPrincipal(identity);
+            var translatedGroups = identity.Groups
+            .Select(x => x.Translate(typeof(NTAccount)).ToString())
+            .ToArray();
+
+            var roleTypes = new List<AuthRoleTypes>(32);
+
+            foreach (var roleTypeWithAccountSetting in roleAccountMappingSettings!)
+            {
+                if (IsUserInTheAccountSettings(identity.Name, roleTypeWithAccountSetting.Accounts!, translatedGroups))
+                {
+                    AddRoleTypes(roleTypeWithAccountSetting, roleTypes);
+                }
+            }
+
+            var claims = roleTypes
+                .Distinct()
+                .Select(rt => new Claim(AuthorizationPolicies.RoleClaimType, rt.ToString()));
+
+            identity.AddClaims(claims);
+
+            return new ClaimsPrincipal(identity);
+        }
     }
 
     private static void AddRoleTypes(RoleTypeWithAccountSetting roleTypeWithAccountSetting, ICollection<AuthRoleTypes> roleTypes)

@@ -13,7 +13,7 @@ public static class DiConfigEmailSender
 
         services.Configure<EmailSettings>(emailSettings);
 
-        services.AddSingleton<IEmailSender, Services.EmailSender>();
+        services.AddSingleton<IEmailSender, MockService.EmailSender>();
     }
 
 }
