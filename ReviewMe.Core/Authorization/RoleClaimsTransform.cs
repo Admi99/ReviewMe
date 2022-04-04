@@ -31,6 +31,7 @@ internal sealed class RoleClaimsTransform : IClaimsTransformation
 
         if (isForTesting)
         {
+            _currentUserService.UserNameWithoutDomain = principal!.Claims.SingleOrDefault(c => c.Type == "login")!.Value;
             var roleTypes = new List<AuthRoleTypes>(32);
             foreach (var roleTypeWithAccountSetting in roleAccountMappingSettings!)
             {

@@ -7,7 +7,7 @@ public interface ICurrentUserService
 {
     WindowsIdentity? UserIdentity { get; }
 
-    string UserNameWithoutDomain { get; }
+    string UserNameWithoutDomain { get; set; }
 
     void SetUserFromJwtTokenClaims(ClaimsPrincipal principal);
 }

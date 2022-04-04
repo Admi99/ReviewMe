@@ -1,4 +1,6 @@
-﻿using System.Security.Authentication;
+﻿using Microsoft.Extensions.Options;
+using ReviewMe.Core.Settings;
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -9,15 +11,16 @@ namespace ReviewMe.Core.Authorization;
 internal sealed class CurrentUserService : ICurrentUserService
 {
     private string? _usernameWithoutDomain;
+    private readonly IOptionsMonitor<ApplicationSettings> _applicationSettingsMonitoredOptions;
 
-    public CurrentUserService()
+    public CurrentUserService(IOptionsMonitor<ApplicationSettings> applicationSettingsMonitoredOptions)
     {
-        _usernameWithoutDomain = "jech";
+        _applicationSettingsMonitoredOptions = applicationSettingsMonitoredOptions;
+        UserNameWithoutDomain = _usernameWithoutDomain ??= GetUserNameWithoutDomain();
     }
 
     public WindowsIdentity? UserIdentity { get; private set; }
-
-    public string UserNameWithoutDomain => _usernameWithoutDomain ??= GetUserNameWithoutDomain();
+    public string UserNameWithoutDomain { get; set; }
 
     public void SetUserFromJwtTokenClaims(ClaimsPrincipal principal)
     {
@@ -40,6 +43,11 @@ internal sealed class CurrentUserService : ICurrentUserService
 
     private string GetUserNameWithoutDomain()
     {
+        if(_applicationSettingsMonitoredOptions.CurrentValue.IsStartedForTesting)
+        {
+            return _applicationSettingsMonitoredOptions.CurrentValue.TestingDomainName;
+        }
+
         if (UserIdentity == null)
         {
             throw new Exception("UserIdentity is null");
