@@ -75,12 +75,19 @@ public class ColleagueService : IColleagueService
                 ProjectId = 102,
                 ProjectName = "Hr"
             },
-              new ColleagueResponse
+            new ColleagueResponse
             {
                 TimurId = 1064,
                 Name = "Wolfeschlegelsteinhausenbergerdorff, Hubert",
                 ProjectId = 102,
                 ProjectName = "Hr"
+            },
+            new ColleagueResponse
+            {
+                TimurId = 1065,
+                Name = "Michálek Adam",
+                ProjectId = 100,
+                ProjectName = "Free Bank"
             },
         };
 

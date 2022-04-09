@@ -52,19 +52,19 @@ public class EmailSendingService : IEmailSendingService
         {
             _logger.LogDebug("Modifying to test email.");
 
-            var testFooterBody = await GetBodyFromEmailRazorTemplate(
-                "/EmailTemplates/TestEmailFooter.cshtml",
-                emailMessage);
+            //var testFooterBody = await GetBodyFromEmailRazorTemplate(
+            //    "/EmailTemplates/TestEmailFooter.cshtml",
+            //    emailMessage);
 
             emailMessage.To = _applicationSettings.TestEmailAddresses;
             emailMessage.Cc = new List<string>(0);
             emailMessage.Bcc = new List<string>(0);
 
-            subject = string.Join(
-                " - ",
-                subject,
-                subject, "[" + "Develop" + "]");
-            body += testFooterBody;
+            //subject = string.Join(
+            //    " - ",
+            //    subject,
+            //    subject, "[" + "Develop" + "]");
+            //body += testFooterBody;
         }
 
         emailMessage.Subject = subject;

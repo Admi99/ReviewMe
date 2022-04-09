@@ -40,7 +40,7 @@ public class AssessmentsNotificationService : IAssessmentsNotificationService
             return;
         }
         
-        var hakkastackUrl = _configuration.GetSection("HakkastackUrl");
+        var hakkastackUrl = _configuration.GetSection("UIUrl");
 
         var (recipientEmails, recipientNames) = GetRecipientsLoginAndName(reviewers);
 
@@ -49,9 +49,8 @@ public class AssessmentsNotificationService : IAssessmentsNotificationService
         var recipients = recipientEmails.Zip(recipientNames);
 
         foreach (var (to, name) in recipients)
-        {
-            var t = "adam.michalek221@gmail.com";
-            await SendTo(EmailTemplate.ReviewerFeedbackRequested, new List<string> { t }, subjectReviewerReminder, new ReviewerFeedbackRequestedModel
+        {         
+            await SendTo(EmailTemplate.ReviewerFeedbackRequested, new List<string> { to }, subjectReviewerReminder, new ReviewerFeedbackRequestedModel
             {
                 ReviewerName = name,
                 AssessedPersonName = employee.SurnameFirstName,
@@ -97,7 +96,7 @@ public class AssessmentsNotificationService : IAssessmentsNotificationService
             return;
         }
 
-        var hakkastackUrl = _configuration.GetSection("HakkastackUrl");
+        var hakkastackUrl = _configuration.GetSection("UIUrl");
 
         var (recipientEmails, recipientName) = GetRecipientsLoginAndName(reviewers);
         var (canceledRecipientEmails, canceledRecipientName) = GetRecipientsLoginAndName(canceledReviewers);
