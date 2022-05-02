@@ -46,7 +46,7 @@ public class EmailSender : IEmailSender
             var emailClient = new SmtpClient();
 
             await emailClient.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.SmtpPort, true);
-            await emailClient.AuthenticateAsync(new NetworkCredential("adammichalek98@gmail.com", ""));
+            await emailClient.AuthenticateAsync(new NetworkCredential("Here select your username", "Here select your password"));
             await emailClient.SendAsync(message);
             await emailClient.DisconnectAsync(true);
 
